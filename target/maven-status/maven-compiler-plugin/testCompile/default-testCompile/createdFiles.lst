@@ -1,0 +1,3 @@
+automationtest/runners/CucumberTestRunner.class
+automationtest/runners/SaucedemoTestRunner.class
+automationtest/stepdefinitions/SaucedemoStepDefinitions.class

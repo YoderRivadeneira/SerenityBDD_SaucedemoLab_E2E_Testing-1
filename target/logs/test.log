@@ -1,0 +1,44 @@
+20:07:34.839 [main] INFO  a.s.SaucedemoStepDefinitions - Test setup completed
+20:07:34.843 [main] INFO  a.s.SaucedemoStepDefinitions - User logging in with username: standard_user
+20:07:34.846 [main] INFO  a.s.SaucedemoStepDefinitions - User successfully logged in
+20:07:34.847 [main] INFO  a.s.SaucedemoStepDefinitions - User adding products to cart
+20:07:34.848 [main] INFO  a.s.SaucedemoStepDefinitions - Products added to cart successfully
+20:07:34.849 [main] INFO  a.s.SaucedemoStepDefinitions - User filling checkout information
+20:07:34.850 [main] INFO  a.s.SaucedemoStepDefinitions - Checkout information filled successfully
+20:07:34.851 [main] INFO  a.s.SaucedemoStepDefinitions - Completing the purchase
+20:07:34.852 [main] INFO  a.s.SaucedemoStepDefinitions - Purchase completed successfully
+20:07:34.853 [main] INFO  a.s.SaucedemoStepDefinitions - Verifying confirmation message: Thank you for your order!
+20:07:34.854 [main] INFO  a.s.SaucedemoStepDefinitions - Confirmation message verified
+20:07:34.876 [main] INFO  a.s.SaucedemoStepDefinitions - Test setup completed
+20:07:34.877 [main] INFO  a.s.SaucedemoStepDefinitions - User logging in with username: performance_glitch_user
+20:07:34.877 [main] INFO  a.s.SaucedemoStepDefinitions - User successfully logged in
+20:07:34.878 [main] INFO  a.s.SaucedemoStepDefinitions - User adding products to cart
+20:07:34.878 [main] INFO  a.s.SaucedemoStepDefinitions - Products added to cart successfully
+20:07:34.879 [main] INFO  a.s.SaucedemoStepDefinitions - User filling checkout information
+20:07:34.880 [main] INFO  a.s.SaucedemoStepDefinitions - Checkout information filled successfully
+20:07:34.880 [main] INFO  a.s.SaucedemoStepDefinitions - Completing the purchase
+20:07:34.881 [main] INFO  a.s.SaucedemoStepDefinitions - Purchase completed successfully
+20:07:34.881 [main] INFO  a.s.SaucedemoStepDefinitions - Verifying confirmation message: Thank you for your order!
+20:07:34.881 [main] INFO  a.s.SaucedemoStepDefinitions - Confirmation message verified
+20:07:34.969 [main] INFO  a.s.SaucedemoStepDefinitions - Test setup completed
+20:07:34.971 [main] INFO  a.s.SaucedemoStepDefinitions - User logging in with username: standard_user
+20:07:34.972 [main] INFO  a.s.SaucedemoStepDefinitions - User successfully logged in
+20:07:34.973 [main] INFO  a.s.SaucedemoStepDefinitions - User adding products to cart
+20:07:34.973 [main] INFO  a.s.SaucedemoStepDefinitions - Products added to cart successfully
+20:07:34.974 [main] INFO  a.s.SaucedemoStepDefinitions - User filling checkout information
+20:07:34.975 [main] INFO  a.s.SaucedemoStepDefinitions - Checkout information filled successfully
+20:07:34.976 [main] INFO  a.s.SaucedemoStepDefinitions - Completing the purchase
+20:07:34.976 [main] INFO  a.s.SaucedemoStepDefinitions - Purchase completed successfully
+20:07:34.977 [main] INFO  a.s.SaucedemoStepDefinitions - Verifying confirmation message: Thank you for your order!
+20:07:34.977 [main] INFO  a.s.SaucedemoStepDefinitions - Confirmation message verified
+20:07:34.988 [main] INFO  a.s.SaucedemoStepDefinitions - Test setup completed
+20:07:34.989 [main] INFO  a.s.SaucedemoStepDefinitions - User logging in with username: performance_glitch_user
+20:07:34.989 [main] INFO  a.s.SaucedemoStepDefinitions - User successfully logged in
+20:07:34.989 [main] INFO  a.s.SaucedemoStepDefinitions - User adding products to cart
+20:07:34.989 [main] INFO  a.s.SaucedemoStepDefinitions - Products added to cart successfully
+20:07:34.990 [main] INFO  a.s.SaucedemoStepDefinitions - User filling checkout information
+20:07:34.990 [main] INFO  a.s.SaucedemoStepDefinitions - Checkout information filled successfully
+20:07:34.990 [main] INFO  a.s.SaucedemoStepDefinitions - Completing the purchase
+20:07:34.990 [main] INFO  a.s.SaucedemoStepDefinitions - Purchase completed successfully
+20:07:34.991 [main] INFO  a.s.SaucedemoStepDefinitions - Verifying confirmation message: Thank you for your order!
+20:07:34.991 [main] INFO  a.s.SaucedemoStepDefinitions - Confirmation message verified

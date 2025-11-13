@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="0.043" tests="2" skipped="0" failures="0" errors="0">
+<testcase classname="Purchase flow in SauceDemo" name="Successful purchase flow - #1.1" time="0.016">
+<system-out><![CDATA[
+Given the user logs in with valid credentials username 'standard_user' and password 'secret_sauce'.passed
+When the user adds products to the cart and proceeds to checkout............passed
+And fills in the required checkout information..............................passed
+Then the user should see the order overview and complete the purchase.......passed
+And the confirmation message "Thank you for your order!" should be displayed.passed
+]]></system-out>
+</testcase>
+<testcase classname="Purchase flow in SauceDemo" name="Successful purchase flow - #1.2" time="0.007">
+<system-out><![CDATA[
+Given the user logs in with valid credentials username 'performance_glitch_user' and password 'secret_sauce'.passed
+When the user adds products to the cart and proceeds to checkout............passed
+And fills in the required checkout information..............................passed
+Then the user should see the order overview and complete the purchase.......passed
+And the confirmation message "Thank you for your order!" should be displayed.passed
+]]></system-out>
+</testcase>
+</testsuite>

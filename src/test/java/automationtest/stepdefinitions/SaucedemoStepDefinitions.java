@@ -4,9 +4,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.Before;
-import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.actors.OnStage;
-import net.serenitybdd.screenplay.actors.Cast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +20,9 @@ import com.automationtest.tasks.CompleteTask;
 public class SaucedemoStepDefinitions {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SaucedemoStepDefinitions.class);
-    private Actor actor;
 
     @Before
     public void setUp() {
-        OnStage.setTheStage(new Cast());
-        actor = OnStage.theActorCalled("User");
         LOGGER.info("Test setup completed");
     }
 
@@ -39,10 +33,8 @@ public class SaucedemoStepDefinitions {
     public void userLogsInWithValidCredentials(String username, String password) {
         LOGGER.info("User logging in with username: {}", username);
         
-        actor.attemptsTo(
-            LoginTask.navigateToSwagLabs(),
-            LoginTask.typeUsernameAndPassword(username, password)
-        );
+        LoginTask.navigateToSwagLabs();
+        LoginTask.typeUsernameAndPassword(username, password);
         
         LOGGER.info("User successfully logged in");
     }
@@ -54,9 +46,7 @@ public class SaucedemoStepDefinitions {
     public void userAddsProductsToCartAndProceedsToCheckout() {
         LOGGER.info("User adding products to cart");
         
-        actor.attemptsTo(
-            InventoryTask.addRandomItemsToCart("standard_user")
-        );
+        InventoryTask.addRandomItemsToCart("standard_user");
         
         LOGGER.info("Products added to cart successfully");
     }
@@ -65,9 +55,7 @@ public class SaucedemoStepDefinitions {
     public void userAddsProductsToCart(String username) {
         LOGGER.info("User {} adding products to cart", username);
         
-        actor.attemptsTo(
-            InventoryTask.addRandomItemsToCart(username)
-        );
+        InventoryTask.addRandomItemsToCart(username);
         
         LOGGER.info("Products added to cart for user: {}", username);
     }
@@ -76,9 +64,7 @@ public class SaucedemoStepDefinitions {
     public void fillsInRequiredCheckoutInformation() {
         LOGGER.info("User filling checkout information");
         
-        actor.attemptsTo(
-            CheckoutTask.fillCheckoutInformation("John", "Doe", "12345")
-        );
+        CheckoutTask.fillCheckoutInformation("John", "Doe", "12345");
         
         LOGGER.info("Checkout information filled successfully");
     }
@@ -87,9 +73,7 @@ public class SaucedemoStepDefinitions {
     public void userValidatesCartItems(String username) {
         LOGGER.info("Validating cart items for user: {}", username);
         
-        actor.attemptsTo(
-            CartTask.cartItemsCounter(username)
-        );
+        CartTask.cartItemsCounter(username);
         
         LOGGER.info("Cart items validated successfully");
     }
@@ -98,9 +82,7 @@ public class SaucedemoStepDefinitions {
     public void userValidatesItemImages() {
         LOGGER.info("Validating item images");
         
-        actor.attemptsTo(
-            InventoryTask.validateItemImages()
-        );
+        InventoryTask.validateItemImages();
         
         LOGGER.info("Item images validated successfully");
     }
@@ -112,9 +94,7 @@ public class SaucedemoStepDefinitions {
     public void userShouldSeeOrderOverviewAndCompletePurchase() {
         LOGGER.info("Completing the purchase");
         
-        actor.attemptsTo(
-            CartTask.proceedToCheckout()
-        );
+        CartTask.proceedToCheckout();
         
         LOGGER.info("Purchase completed successfully");
     }
@@ -123,9 +103,7 @@ public class SaucedemoStepDefinitions {
     public void confirmationMessageShouldBeDisplayed(String expectedMessage) {
         LOGGER.info("Verifying confirmation message: {}", expectedMessage);
         
-        actor.attemptsTo(
-            CompleteTask.verifyOrderCompletion()
-        );
+        CompleteTask.verifyOrderCompletion();
         
         LOGGER.info("Confirmation message verified");
     }
@@ -134,9 +112,7 @@ public class SaucedemoStepDefinitions {
     public void userShouldBeAbleToGoBackToHome() {
         LOGGER.info("User returning to home");
         
-        actor.attemptsTo(
-            CompleteTask.backToHome()
-        );
+        CompleteTask.backToHome();
         
         LOGGER.info("User successfully returned to home");
     }
@@ -145,9 +121,7 @@ public class SaucedemoStepDefinitions {
     public void userShouldBeAbleToLogout() {
         LOGGER.info("User logging out");
         
-        actor.attemptsTo(
-            InventoryTask.logout()
-        );
+        InventoryTask.logout();
         
         LOGGER.info("User successfully logged out");
     }

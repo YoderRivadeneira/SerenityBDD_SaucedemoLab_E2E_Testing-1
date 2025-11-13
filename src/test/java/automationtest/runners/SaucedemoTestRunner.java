@@ -20,8 +20,7 @@ import org.junit.runner.RunWith;
     },
     monochrome = false,
     tags = "not @ignore",
-    dryRun = false,
-    strict = false
+    dryRun = false
 )
 public class SaucedemoTestRunner {
 }

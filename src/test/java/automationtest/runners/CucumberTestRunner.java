@@ -19,8 +19,7 @@ import org.junit.runner.RunWith;
         "junit:target/cucumber-reports/cucumber.xml"
     },
     monochrome = false,
-    dryRun = false,
-    strict = false
+    dryRun = false
 )
 public class CucumberTestRunner {
 }
