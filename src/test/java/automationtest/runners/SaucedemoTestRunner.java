@@ -5,22 +5,23 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 /**
- * Test Runner para ejecutar las pruebas con Cucumber y Serenity BDD
- * El navegador se abrirá automáticamente según la configuración en serenity.conf
+ * Serenity Test Runner con opciones de ejecución específicas
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
     features = "src/test/resources/features",
-    glue = "automationtest.stepdefinitions",
+    glue = {"automationtest.stepdefinitions"},
     plugin = {
         "pretty",
         "json:target/cucumber-reports/cucumber.json",
-        "html:target/cucumber-reports/index.html",
-        "junit:target/cucumber-reports/cucumber.xml"
+        "html:target/cucumber-reports/cucumber-report.html",
+        "junit:target/cucumber-reports/cucumber.xml",
+        "json:target/test-results/cucumber.json"
     },
     monochrome = false,
+    tags = "not @ignore",
     dryRun = false,
     strict = false
 )
-public class CucumberTestRunner {
+public class SaucedemoTestRunner {
 }
