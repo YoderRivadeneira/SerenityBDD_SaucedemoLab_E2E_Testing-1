@@ -1,10 +1,8 @@
 package com.automationtest.tasks;
 
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actor.Actor;
+import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.ensure.Ensure;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -103,9 +101,13 @@ public class CheckoutTask implements Task {
                     waitForNetworkIdle();
                     LOGGER.info("Network idle state reached for problem_user before clicking finish");
                 } else {
-                    actor.attemptsTo(
-                        Ensure.that(CheckoutPage.FINISH_BUTTON).isPresent()
-                    );
+                    WebDriver driver = getWebDriver();
+                    WebElement finishBtn = driver.findElement(CheckoutPage.FINISH_BUTTON);
+                    
+                    if (!finishBtn.isDisplayed()) {
+                        throw new AssertionError("Finish button is not visible");
+                    }
+                    
                     actor.attemptsTo(Click.on(CheckoutPage.FINISH_BUTTON));
                     LOGGER.info("Finish button clicked successfully");
                 }
@@ -126,9 +128,9 @@ public class CheckoutTask implements Task {
                 WebDriver driver = getWebDriver();
                 WebElement errorElement = driver.findElement(CheckoutPage.ERROR_CHECKOUT_FORM_MESSAGE);
                 
-                actor.attemptsTo(
-                    Ensure.that(CheckoutPage.ERROR_CHECKOUT_FORM_MESSAGE).isPresent()
-                );
+                if (!errorElement.isDisplayed()) {
+                    throw new AssertionError("Error message is not displayed");
+                }
                 
                 String actualMessage = errorElement.getText();
                 if (!actualMessage.equals(expectedMessage)) {

@@ -1,0 +1,13 @@
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/ui/CompletePage.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/ui/BasePage.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/tasks/LoginTask.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/ui/CartPage.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/tasks/CompleteTask.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/ui/LoginPage.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/tasks/CartTask.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/util/Constants.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/tasks/BaseTask.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/tasks/InventoryTask.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/ui/CheckoutPage.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/ui/InventoryPage.java
+/home/javiandriu/Documentos/Cursos/Serenity BDD/SerenityBDD_SaucedemoLab_E2E_Testing/src/main/java/com/automationtest/tasks/CheckoutTask.java

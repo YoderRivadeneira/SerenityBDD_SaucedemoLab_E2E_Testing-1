@@ -1,18 +1,16 @@
 package com.automationtest.tasks;
 
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actor.Actor;
+import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.ensure.Ensure;
+import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
-
-import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
 import com.automationtest.ui.LoginPage;
 import com.automationtest.ui.InventoryPage;
@@ -32,11 +30,19 @@ public class LoginTask implements Task {
         return new LoginTask() {
             @Override
             public <T extends Actor> void performAs(T actor) {
-                actor.attemptsTo(
-                    Open.browserOn().the(BASE_URL)
-                );
+                WebDriver driver = getWebDriver();
+                driver.navigate().to(BASE_URL);
             }
         };
+    }
+
+    /**
+     * Obtiene el WebDriver de Serenity
+     */
+    private static WebDriver getWebDriver() {
+        return org.openqa.selenium.WebDriver.class.cast(
+            net.serenitybdd.core.Serenity.getDriver()
+        );
     }
 
     /**
@@ -59,15 +65,15 @@ public class LoginTask implements Task {
                 switch (username) {
                     case "standard_user":
                     case "problem_user":
-                        validateSuccessfulLogin(actor);
+                        validateSuccessfulLogin();
                         break;
 
                     case "locked_out_user":
-                        validateLockedOutUser(actor);
+                        validateLockedOutUser();
                         break;
 
                     case "performance_glitch_user":
-                        validatePerformanceGlitchUser(actor);
+                        validatePerformanceGlitchUser();
                         break;
 
                     default:
@@ -80,34 +86,37 @@ public class LoginTask implements Task {
     /**
      * Valida el login exitoso para usuarios estándar
      */
-    private static void validateSuccessfulLogin(Actor actor) {
-        actor.attemptsTo(
-            Ensure.that(InventoryPage.INVENTORY_ITEMS).isPresent()
-        );
+    private static void validateSuccessfulLogin() {
+        WebDriver driver = getWebDriver();
+        int timeout = 10;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(InventoryPage.INVENTORY_ITEMS));
     }
 
     /**
      * Valida el mensaje de error para usuario bloqueado
      */
-    private static void validateLockedOutUser(Actor actor) {
-        actor.attemptsTo(
-            Ensure.that(LoginPage.ERROR_MESSAGE).isPresent()
-        );
+    private static void validateLockedOutUser() {
+        WebDriver driver = getWebDriver();
+        int timeout = 10;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.presenceOfElementLocated(LoginPage.ERROR_MESSAGE));
     }
 
     /**
      * Valida el login con retraso para usuario con problemas de rendimiento
      */
-    private static void validatePerformanceGlitchUser(Actor actor) {
+    private static void validatePerformanceGlitchUser() {
         try {
             Thread.sleep(10000); // Esperar 10 segundos
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         
-        actor.attemptsTo(
-            Ensure.that(InventoryPage.INVENTORY_ITEMS).isPresent()
-        );
+        WebDriver driver = getWebDriver();
+        int timeout = 10;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(InventoryPage.INVENTORY_ITEMS));
     }
 
     @Override

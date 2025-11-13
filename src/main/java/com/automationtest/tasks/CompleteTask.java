@@ -1,9 +1,8 @@
 package com.automationtest.tasks;
 
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actor.Actor;
+import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.ensure.Ensure;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,12 +32,15 @@ public class CompleteTask implements Task {
         return new CompleteTask() {
             @Override
             public <T extends Actor> void performAs(T actor) {
-                actor.attemptsTo(
-                    Ensure.that(CompletePage.THANKS_MESSAGE).isPresent()
-                );
+                WebDriver driver = getWebDriver();
+                WebElement thanksMsg = driver.findElement(CompletePage.THANKS_MESSAGE);
+                
+                if (!thanksMsg.isDisplayed()) {
+                    throw new AssertionError("Thanks message is not displayed");
+                }
 
-                validateThanksMessage(actor);
-                validateCompleteText(actor);
+                validateThanksMessage(driver);
+                validateCompleteText(driver);
                 
                 LOGGER.info("Order completion verification passed successfully");
             }
@@ -48,14 +50,9 @@ public class CompleteTask implements Task {
     /**
      * Valida que el mensaje de agradecimiento sea visible y contenga el texto esperado
      */
-    private static void validateThanksMessage(Actor actor) {
-        WebDriver driver = getWebDriver();
+    private static void validateThanksMessage(WebDriver driver) {
         WebElement thanksMessageElement = driver.findElement(CompletePage.THANKS_MESSAGE);
         
-        actor.attemptsTo(
-            Ensure.that(CompletePage.THANKS_MESSAGE).isDisplayed()
-        );
-
         String actualText = thanksMessageElement.getText();
         if (!actualText.equals(EXPECTED_THANKS_MESSAGE)) {
             throw new AssertionError(
@@ -69,14 +66,9 @@ public class CompleteTask implements Task {
     /**
      * Valida que el texto de confirmación sea visible y contenga el texto esperado
      */
-    private static void validateCompleteText(Actor actor) {
-        WebDriver driver = getWebDriver();
+    private static void validateCompleteText(WebDriver driver) {
         WebElement completeTextElement = driver.findElement(CompletePage.COMPLETE_TEXT);
         
-        actor.attemptsTo(
-            Ensure.that(CompletePage.COMPLETE_TEXT).isDisplayed()
-        );
-
         String actualText = completeTextElement.getText();
         if (!actualText.equals(EXPECTED_COMPLETE_TEXT)) {
             throw new AssertionError(
@@ -96,9 +88,12 @@ public class CompleteTask implements Task {
         return new CompleteTask() {
             @Override
             public <T extends Actor> void performAs(T actor) {
-                actor.attemptsTo(
-                    Ensure.that(CompletePage.BACK_HOME_BUTTON).isPresent()
-                );
+                WebDriver driver = getWebDriver();
+                WebElement backBtn = driver.findElement(CompletePage.BACK_HOME_BUTTON);
+                
+                if (!backBtn.isDisplayed()) {
+                    throw new AssertionError("Back home button is not visible");
+                }
 
                 actor.attemptsTo(
                     Click.on(CompletePage.BACK_HOME_BUTTON)

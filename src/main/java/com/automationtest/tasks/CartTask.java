@@ -1,9 +1,8 @@
 package com.automationtest.tasks;
 
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actor.Actor;
+import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.ensure.Ensure;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import java.util.List;
@@ -67,10 +66,13 @@ public class CartTask implements Task {
         return new CartTask() {
             @Override
             public <T extends Actor> void performAs(T actor) {
-                actor.attemptsTo(
-                    Ensure.that(CartPage.CHECKOUT_BUTTON).isPresent()
-                );
-
+                WebDriver driver = getWebDriver();
+                WebElement checkoutBtn = driver.findElement(CartPage.CHECKOUT_BUTTON);
+                
+                if (!checkoutBtn.isDisplayed()) {
+                    throw new AssertionError("Checkout button is not visible");
+                }
+                
                 actor.attemptsTo(
                     Click.on(CartPage.CHECKOUT_BUTTON)
                 );

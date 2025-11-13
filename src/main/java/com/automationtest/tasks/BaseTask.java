@@ -1,7 +1,7 @@
 package com.automationtest.tasks;
 
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actor.Actor;
+import net.serenitybdd.screenplay.Actor;
 
 /**
  * Clase base para todas las Tasks
