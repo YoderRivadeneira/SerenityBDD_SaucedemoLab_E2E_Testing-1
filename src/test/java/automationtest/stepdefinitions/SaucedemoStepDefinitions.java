@@ -3,15 +3,18 @@ package automationtest.stepdefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.Before;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.questions.Text;
-import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
-import net.serenitybdd.screenplay.ensure.Ensure;
-import org.openqa.selenium.By;
-import static net.serenitybdd.screenplay.actors.OnStage.*;
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.actors.Cast;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.automationtest.tasks.LoginTask;
+import com.automationtest.tasks.InventoryTask;
+import com.automationtest.tasks.CartTask;
+import com.automationtest.tasks.CheckoutTask;
+import com.automationtest.tasks.CompleteTask;
 
 /**
  * Step Definitions para Serenity BDD + Cucumber
@@ -19,33 +22,29 @@ import static net.serenitybdd.screenplay.actors.OnStage.*;
  */
 public class SaucedemoStepDefinitions {
 
-    private static final String BASE_URL = "https://www.saucedemo.com";
-    
-    // Localizadores
-    private static final By USERNAME_INPUT = By.id("user-name");
-    private static final By PASSWORD_INPUT = By.id("password");
-    private static final By LOGIN_BUTTON = By.id("login-button");
-    private static final By PRODUCTS_CONTAINER = By.className("inventory_container");
-    private static final By CART_BUTTON = By.className("shopping_cart_link");
-    private static final By CHECKOUT_BUTTON = By.id("checkout");
-    private static final By CONFIRMATION_MESSAGE = By.className("complete-header");
+    private static final Logger LOGGER = LoggerFactory.getLogger(SaucedemoStepDefinitions.class);
+    private Actor actor;
+
+    @Before
+    public void setUp() {
+        OnStage.setTheStage(new Cast());
+        actor = OnStage.theActorCalled("User");
+        LOGGER.info("Test setup completed");
+    }
 
     /**
      * Pasos Given - Precondiciones
      */
     @Given("the user logs in with valid credentials username {string} and password {string}")
     public void userLogsInWithValidCredentials(String username, String password) {
-        Actor actor = theActorInTheSpotlight();
+        LOGGER.info("User logging in with username: {}", username);
         
-        // Navegar a la aplicación
-        actor.attemptsTo(Open.browserOn().the(BASE_URL));
-        
-        // Ingresar credenciales
         actor.attemptsTo(
-            Enter.theValue(username).into(USERNAME_INPUT),
-            Enter.theValue(password).into(PASSWORD_INPUT),
-            Click.on(LOGIN_BUTTON)
+            LoginTask.navigateToSwagLabs(),
+            LoginTask.typeUsernameAndPassword(username, password)
         );
+        
+        LOGGER.info("User successfully logged in");
     }
 
     /**
@@ -53,35 +52,57 @@ public class SaucedemoStepDefinitions {
      */
     @When("the user adds products to the cart and proceeds to checkout")
     public void userAddsProductsToCartAndProceedsToCheckout() {
-        Actor actor = theActorInTheSpotlight();
+        LOGGER.info("User adding products to cart");
         
-        // Agregar productos al carrito
-        By addToCartButton = By.xpath("//button[contains(text(), 'Add to cart')]");
-        actor.attemptsTo(Click.on(addToCartButton));
+        actor.attemptsTo(
+            InventoryTask.addRandomItemsToCart("standard_user")
+        );
         
-        // Navegar al carrito
-        actor.attemptsTo(Click.on(CART_BUTTON));
+        LOGGER.info("Products added to cart successfully");
+    }
+
+    @When("the user adds products to the cart for {string}")
+    public void userAddsProductsToCart(String username) {
+        LOGGER.info("User {} adding products to cart", username);
+        
+        actor.attemptsTo(
+            InventoryTask.addRandomItemsToCart(username)
+        );
+        
+        LOGGER.info("Products added to cart for user: {}", username);
     }
 
     @When("fills in the required checkout information")
     public void fillsInRequiredCheckoutInformation() {
-        Actor actor = theActorInTheSpotlight();
-        
-        // Hacer clic en checkout
-        actor.attemptsTo(Click.on(CHECKOUT_BUTTON));
-        
-        // Llenar información de envío
-        By firstNameInput = By.id("first-name");
-        By lastNameInput = By.id("last-name");
-        By zipCodeInput = By.id("postal-code");
-        By continueButton = By.id("continue");
+        LOGGER.info("User filling checkout information");
         
         actor.attemptsTo(
-            Enter.theValue("John").into(firstNameInput),
-            Enter.theValue("Doe").into(lastNameInput),
-            Enter.theValue("12345").into(zipCodeInput),
-            Click.on(continueButton)
+            CheckoutTask.fillCheckoutInformation("John", "Doe", "12345")
         );
+        
+        LOGGER.info("Checkout information filled successfully");
+    }
+
+    @When("the user validates the cart items for {string}")
+    public void userValidatesCartItems(String username) {
+        LOGGER.info("Validating cart items for user: {}", username);
+        
+        actor.attemptsTo(
+            CartTask.cartItemsCounter(username)
+        );
+        
+        LOGGER.info("Cart items validated successfully");
+    }
+
+    @When("the user validates item images")
+    public void userValidatesItemImages() {
+        LOGGER.info("Validating item images");
+        
+        actor.attemptsTo(
+            InventoryTask.validateItemImages()
+        );
+        
+        LOGGER.info("Item images validated successfully");
     }
 
     /**
@@ -89,26 +110,45 @@ public class SaucedemoStepDefinitions {
      */
     @Then("the user should see the order overview and complete the purchase")
     public void userShouldSeeOrderOverviewAndCompletePurchase() {
-        Actor actor = theActorInTheSpotlight();
+        LOGGER.info("Completing the purchase");
         
-        // Verificar que se muestra el resumen del pedido
         actor.attemptsTo(
-            Ensure.that(PRODUCTS_CONTAINER).isPresent()
+            CartTask.proceedToCheckout()
         );
         
-        // Hacer clic en finalizar compra
-        By finishButton = By.id("finish");
-        actor.attemptsTo(Click.on(finishButton));
+        LOGGER.info("Purchase completed successfully");
     }
 
     @Then("the confirmation message {string} should be displayed")
     public void confirmationMessageShouldBeDisplayed(String expectedMessage) {
-        Actor actor = theActorInTheSpotlight();
+        LOGGER.info("Verifying confirmation message: {}", expectedMessage);
         
-        // Verificar el mensaje de confirmación
         actor.attemptsTo(
-            Ensure.that(CONFIRMATION_MESSAGE)
-                .isPresent()
+            CompleteTask.verifyOrderCompletion()
         );
+        
+        LOGGER.info("Confirmation message verified");
+    }
+
+    @Then("the user should be able to go back to home")
+    public void userShouldBeAbleToGoBackToHome() {
+        LOGGER.info("User returning to home");
+        
+        actor.attemptsTo(
+            CompleteTask.backToHome()
+        );
+        
+        LOGGER.info("User successfully returned to home");
+    }
+
+    @Then("the user should be able to logout")
+    public void userShouldBeAbleToLogout() {
+        LOGGER.info("User logging out");
+        
+        actor.attemptsTo(
+            InventoryTask.logout()
+        );
+        
+        LOGGER.info("User successfully logged out");
     }
 }
